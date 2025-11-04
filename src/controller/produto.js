@@ -37,8 +37,9 @@ class ControllerProduto {
 
     async Alterar(req, res) {
         try {
-            const { id, nome, disponivel, quantidade} = req.body
-
+            const id = req.params.id
+            const { nome, disponivel, quantidade} = req.body
+            await ServiceProduto.Alterar(id, nome, disponivel, quantidade)
             res.status(200).send('Produto alterado')
         } catch (error) {
             res.status(500).send({ msg: error.message })
