@@ -32,21 +32,21 @@ class ServiceProduto {
     
     async Alterar(id, nome, disponivel, quantidade) {
 
-        if(!id || !nome || !disponivel || !quantidade) {
-            throw new Error("Favor preencher os campos!")
+        if(!id) {
+            throw new Error("Favor informar o ID!")
         }
 
-        const produto = await Produto.findByPk(id)
+        const produtoVelho = await Produto.findByPk(id)
 
-        if(!produto) {
+        if(!produtoVelho) {
             throw new Error(`Usuário ${id} não foi encontrado!`)
         }
     
-        produto.nome = nome
-        produto.disponivel = disponivel
-        produto.quantidade = quantidade
+        produtoVelho.nome = nome || produtoVelho.nome
+        produtoVelho.disponivel = disponivel || produtoVelho.disponivel
+        produtoVelho.quantidade = quantidade || produtoVelho.quantidade
         
-        await produto.save()
+        await produtoVelho.save()
     }
     
     async Deletar(id) {
